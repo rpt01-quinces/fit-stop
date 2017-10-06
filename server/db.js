@@ -33,8 +33,18 @@ var exerciseSchema = new Schema({
 });
 
 var userSchema = new Schema({
-  username: String,
-  password: String,
+  username: {
+    type: String,
+    validate: {
+      validator: (username) => username.length > 2,
+        message: 'Username must be more than 2 characters.'
+    },
+    required: [true, 'Username is required.']
+  },
+  password: {
+    type: String,
+    required: [true, 'Password is required.']
+  },
   preferences: {},
   workoutHistory: []
 });

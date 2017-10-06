@@ -163,6 +163,7 @@ function addSignup(req, res) {
           password: hash,
           preferences: {}
         });
+
         newUser.save(function(err) {
           if (err) {
             console.log(err);
