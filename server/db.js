@@ -37,13 +37,13 @@ var userSchema = new Schema({
     type: String,
     validate: {
       validator: (username) => username.length > 2,
-        message: 'User Name must be longer than 2 charecter'
+        message: 'Username must be more than 2 characters.'
     },
-    required: [true, 'Name is required.']
+    required: [true, 'Username is required.']
   },
   password: {
     type: String,
-    required: [true, 'Please enter a password']
+    required: [true, 'Password is required.']
   },
   preferences: {},
   workoutHistory: []
