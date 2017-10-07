@@ -171,6 +171,7 @@ function checkLogin(req, res) {
 function addSignup(req, res) {
   var name = req.body.username;
   var pass = req.body.password;
+  var num = req.body.number;
   var hash = bcrypt.hashSync(pass, salt);
   var id = new ObjectID();
 
@@ -183,6 +184,7 @@ function addSignup(req, res) {
           _id: id,
           username: name,
           password: hash,
+          number: num,
           preferences: {}
         });
 

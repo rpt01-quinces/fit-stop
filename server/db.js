@@ -36,6 +36,8 @@ var userSchema = new Schema({
   username: String,
   password: String,
   favorites: [],
+  number: String,
+  preferences: {},
   workoutHistory: []
 });
 
