@@ -3,13 +3,15 @@
 .DS_Store
 
 
-/server/dbInfo.js
-/server/seedDb.js
+server/dbInfo.js
+server/seedDb.js
 
-/client/public/compiled
+client/public/compiled
 
-/.flooignore
+.flooignore
 
-/.floo
+.floo
 
-/env/credentials.js
+env/credentials.js
+
+node_modules
