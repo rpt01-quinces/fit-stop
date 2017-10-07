@@ -7,6 +7,10 @@ var Exercise = require('./db').exerciseModel;
 var User = require('./db').userModel;
 var ObjectID = require('mongodb').ObjectID;
 var spotifyHelpers = require('./helpers/spotifyHelpers.js')
+var twilio = require('twilio');
+var accountSid = require('../env/config').accountSid;
+var authToken = require('../env/config').authToken;
+
 
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -26,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 console.log('server is running');
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -41,6 +44,7 @@ app.post('/addWorkout', addWorkout);
 app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
+app.post('/reminder', sendReminder);
 
 
 app.get('/hostLogin', (req, res) => {
@@ -200,6 +204,17 @@ function addSignup(req, res) {
       }
     }
   });
+}
+
+function sendReminder(req, res) {
+  var client = new twilio(accountSid, authToken);
+  
+  client.messages.create({
+      body: 'Hello from Node',
+      to: '+15743606912',  // Text this number
+      from: '+12693366569 ' // From a valid Twilio number
+  })
+  .then((message) => console.log(message.sid));
 }
 
 
