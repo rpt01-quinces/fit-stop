@@ -1,4 +1,4 @@
-class musicPlayer extends React.Component {
+class MusicPlayer extends React.Component {
   constructor() {
     super();
 
@@ -36,20 +36,20 @@ class musicPlayer extends React.Component {
       });
   }
 
-  playCurrentSong(deviceId, trackId) {
-    spotifyApi.play({
-      device_id: deviceId,
-      uris: ['spotify:track:' + trackId]
-    });
-  };
+  // playCurrentSong(deviceId, trackId) {
+  //   spotifyApi.play({
+  //     device_id: deviceId,
+  //     uris: ['spotify:track:' + trackId]
+  //   });
+  // };
 
-  handlePlayButtonClick () {
-    const trackId = this.state.songs[0].link.split('track/')[1];
-    const songId = this.state.songs[0]._id;
-    this.setState({currentSong: this.state.songs[0]});
-    this.playCurrentSong(this.state.deviceId, trackId);
-    this.removeSong(songId);
-  }
+  // handlePlayButtonClick () {
+  //   const trackId = this.state.songs[0].link.split('track/')[1];
+  //   const songId = this.state.songs[0]._id;
+  //   this.setState({currentSong: this.state.songs[0]});
+  //   this.playCurrentSong(this.state.deviceId, trackId);
+  //   this.removeSong(songId);
+  // }
 
   render() {
     return (<div>
@@ -59,4 +59,4 @@ class musicPlayer extends React.Component {
 }
 
 
-window.musicPlayer = musicPlayer;
+window.MusicPlayer = MusicPlayer;
