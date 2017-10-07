@@ -6,7 +6,7 @@ var db = require('./db').mongoose;
 var Exercise = require('./db').exerciseModel;
 var User = require('./db').userModel;
 var ObjectID = require('mongodb').ObjectID;
-
+var spotifyHelpers = require('./helpers/spotifyHelpers.js')
 
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -40,6 +40,14 @@ app.post('/addWorkout', addWorkout);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 
+
+app.get('/hostLogin', (req, res) => {
+  spotifyHelpers.handleHostLogin(req, res);
+});
+
+app.get('/callback', (req, res) => {
+  spotifyHelpers.redirectAfterLogin(req, res);
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Request Handlers
