@@ -1,16 +1,8 @@
-class musicPlayer extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-
-    };
-  }
-
-  render() {
-
-  }
-}
+var MusicPlayer = (props) => (
+  <div>
+      <button>Log in to Spotify to Activate Player</button>
+  </div>
+);
 
 
-window.musicPlayer = musicPlayer;
+window.MusicPlayer = MusicPlayer;
