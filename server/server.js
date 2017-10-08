@@ -10,6 +10,7 @@ var spotifyHelpers = require('./helpers/spotifyHelpers.js')
 var twilio = require('twilio');
 var accountSid = require('../env/config').accountSid;
 var authToken = require('../env/config').authToken;
+var schedule = require('node-schedule');
 
 
 var bcrypt = require('bcrypt');
@@ -207,6 +208,13 @@ function addSignup(req, res) {
 }
 
 function sendReminder(req, res) {
+  // var rule = new schedule.RecurrenceRule();
+  // rule.hour = 12;
+  // rule.minute = 0;
+   
+  // var j = schedule.scheduleJob(rule, function(){
+  //   console.log('Today is recognized by Rebecca Black!');
+  // });
   var client = new twilio(accountSid, authToken);
   var numbers = [];
 
