@@ -7,6 +7,8 @@ var Exercise = require('./db').exerciseModel;
 var User = require('./db').userModel;
 var ObjectID = require('mongodb').ObjectID;
 var spotifyHelpers = require('./helpers/spotifyHelpers.js')
+var scheduler = require('./scheduler');
+
 
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -26,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 console.log('server is running');
 
+scheduler.schedulerFactory();
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
@@ -41,7 +44,6 @@ app.post('/addWorkout', addWorkout);
 app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
-
 
 app.get('/hostLogin', (req, res) => {
   spotifyHelpers.handleHostLogin(req, res);
@@ -171,6 +173,7 @@ function checkLogin(req, res) {
 function addSignup(req, res) {
   var name = req.body.username;
   var pass = req.body.password;
+  var num = req.body.number;
   var hash = bcrypt.hashSync(pass, salt);
   var id = new ObjectID();
 
@@ -183,6 +186,7 @@ function addSignup(req, res) {
           _id: id,
           username: name,
           password: hash,
+          number: "+1"+num,
           preferences: {}
         });
 

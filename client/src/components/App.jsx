@@ -186,13 +186,15 @@ class App extends React.Component {
     const data = new FormData(event.target);
     var username = data.get('username');
     var password = data.get('password');
+    var phonenumber = data.get('phonenumber');
 
     $.ajax({
       type: "POST",
       url: '/signup',
       data: JSON.stringify({
         username: username,
-        password: password
+        password: password,
+        number: phonenumber
       }),
       contentType: 'application/json',
       dataType: 'json',

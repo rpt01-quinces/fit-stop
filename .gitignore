@@ -5,6 +5,7 @@
 
 server/dbInfo.js
 server/seedDb.js
+env/config.js
 
 client/public/compiled
 
