@@ -280,6 +280,7 @@ class App extends React.Component {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
+        <MusicPlayer />
       </div>
     )
   }
