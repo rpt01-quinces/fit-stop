@@ -38,6 +38,7 @@ app.get('/workout', getWorkout);
 app.get('/history', getHistory);
 
 app.post('/addWorkout', addWorkout);
+app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 
@@ -132,6 +133,10 @@ function addWorkout(req, res) {
   });
 }
 
+function favoriteExercise(req, res) {
+  console.log('server side called');
+  console.log('->', req.body);
+}
 
 function checkLogin(req, res) {
   var name = req.body.username;
