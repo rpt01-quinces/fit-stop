@@ -1,3 +1,5 @@
+const spotifyApi = new SpotifyWebApi;
+
 class MusicPlayer extends React.Component {
   constructor() {
     super();
@@ -7,7 +9,12 @@ class MusicPlayer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getSpotifyToken()
+  }
+
   getSpotifyToken() {
+    console.log('getting spotify token')
     const getHashParams = () => {
     let hashParams = {};
     let e, r = /([^&;=]+)=?([^&;]*)/g;
