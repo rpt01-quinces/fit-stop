@@ -1,46 +1,22 @@
 const spotifyApi = new SpotifyWebApi;
 
 class MusicPlayer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      loggedInToSpotify: false
+      loggedInToSpotify: false,
+      user: this.props.user
     };
+    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
   componentDidMount() {
-    this.getSpotifyToken()
   }
 
-  getSpotifyToken() {
-    console.log('getting spotify token')
-    const getHashParams = () => {
-    let hashParams = {};
-    let e, r = /([^&;=]+)=?([^&;]*)/g;
-    let q = window.location.hash.substring(1);
-    while ( e = r.exec(q)) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-    }
-      return hashParams;
-    }
-
-    const params = getHashParams();
-    const access_token = params.access_token;
-    const refresh_token = params.refresh_token;
-
-    spotifyApi.setAccessToken(access_token);
-    return access_token;
-  }
-
-  //get the active device for the host user who is signed in to Spotify
-  getDeviceId() {
-    spotifyApi.getMyDevices()
-      .then((data) => {
-        this.setState({deviceId : data.devices[0].id})
-      }, (err) =>{
-        console.error(err);
-      });
+  handleLoginClick() {
+    window.location.href = '/spotifyLogin';
+    this.props.handleLogin(this.props.user);
   }
 
   // playCurrentSong(deviceId, trackId) {
@@ -60,7 +36,12 @@ class MusicPlayer extends React.Component {
 
   render() {
     return (<div>
-      <button>Log in to Spotify to Activate Player</button>
+      {this.state.loggedInToSpotify ?
+         <iframe src="https://open.spotify.com/embed?uri=spotify:track:54X78diSLoUDI3joC2bjMz" width="400" height="100" frameBorder="0" allowTransparency="true"></iframe>
+        : <button onClick={this.handleLoginClick}>
+        Log in to Spotify to Activate Player
+        </button>
+      }
     </div>)
   }
 }

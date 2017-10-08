@@ -27,6 +27,7 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
+    this.autoLogin = this.autoLogin.bind(this);
 
   }
 
@@ -36,6 +37,7 @@ class App extends React.Component {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   goToDashboard() {
+    console.log('going to dashboard')
     this.setState({currentState: 'Dashboard'});
     this.setState({showButtons: true});
     if (this.state.loggedIn) {
@@ -154,6 +156,7 @@ class App extends React.Component {
   };
 
   login(event) {
+    console.log('logging in')
     event.preventDefault();
     const data = new FormData(event.target);
     var username = data.get('username');
@@ -209,6 +212,10 @@ class App extends React.Component {
         }
       }
     });
+  }
+
+  autoLogin(user) {
+    this.setState({username: user, loggedIn: true});
   }
 
   logOut() {
@@ -270,6 +277,40 @@ class App extends React.Component {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  MusicPlayer helpers
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+getSpotifyToken() {
+    console.log('getting spotify token')
+    const getHashParams = () => {
+    let hashParams = {};
+    let e, r = /([^&;=]+)=?([^&;]*)/g;
+    let q = window.location.hash.substring(1);
+    while ( e = r.exec(q)) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+      return hashParams;
+    }
+
+    const params = getHashParams();
+    const access_token = params.access_token;
+    const refresh_token = params.refresh_token;
+
+    spotifyApi.setAccessToken(access_token);
+    return access_token;
+  }
+
+  //get the active device for the host user who is signed in to Spotify
+  getDeviceId() {
+    spotifyApi.getMyDevices()
+      .then((data) => {
+        console.log('devices:', data.devices[0].id)
+        this.setState({deviceId : data.devices[0].id})
+      }, (err) =>{
+        console.error(err);
+      });
+  }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Renders the components based ot the current state
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -305,7 +346,7 @@ class App extends React.Component {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        <MusicPlayer />
+        <MusicPlayer handleLogin={this.autoLogin} user={this.state.username}/>
       </div>
     )
   }
