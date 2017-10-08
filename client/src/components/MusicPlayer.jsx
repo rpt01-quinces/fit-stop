@@ -15,7 +15,7 @@ class MusicPlayer extends React.Component {
   }
 
   handleLoginClick() {
-    window.location.href = '/spotifyLogin';
+    window.location.href = '/hostLogin';
     this.props.handleLogin(this.props.user);
   }
 

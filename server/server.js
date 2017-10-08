@@ -1,6 +1,9 @@
 var express = require('express')
 var bodyParser = require('body-parser');
 var path = require('path');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
 
 var db = require('./db').mongoose;
 var Exercise = require('./db').exerciseModel;
@@ -25,6 +28,9 @@ app.use('/jquery', express.static('node_modules/jquery/dist'));
 app.use('/spotify-web-api-js', express.static('node_modules/spotify-web-api-js/src'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('shhhh, very secret'));
+app.use(session());
+
 
 console.log('server is running');
 
