@@ -143,7 +143,7 @@ class App extends React.Component {
       url: '/user/favorites',
       data: JSON.stringify({
         username: this.state.username,
-        currentWorkout: exercise
+        currentExercise: exercise
       }),
       contentType: 'application/json',
       dataType: 'json',

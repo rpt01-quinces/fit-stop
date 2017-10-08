@@ -136,6 +136,16 @@ function addWorkout(req, res) {
 function favoriteExercise(req, res) {
   console.log('server side called');
   console.log('->', req.body);
+  User.findOne({name: req.body.username})
+  .then(function(user) {
+    if (user) {
+      user.favorites.push(req.body.currentExercise.name);
+      return user.save();
+    }
+  })
+  .then(function() {
+    res.sendStatus(201);
+  });
 }
 
 function checkLogin(req, res) {
