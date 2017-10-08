@@ -188,7 +188,7 @@ function addSignup(req, res) {
           _id: id,
           username: name,
           password: hash,
-          number: num,
+          number: "+1"+num,
           preferences: {}
         });
 
@@ -208,13 +208,39 @@ function addSignup(req, res) {
 
 function sendReminder(req, res) {
   var client = new twilio(accountSid, authToken);
-  
-  client.messages.create({
-      body: 'Hello from Node',
-      to: '+15743606912',  // Text this number
-      from: '+12693366569 ' // From a valid Twilio number
+  var numbers = [];
+
+  User.find({}, function(err, users) {
+    if(users) {
+      users.forEach(function(user) {
+        if(user.number) {
+          numbers.push(user.number)
+        }
+      }, this);
+    }
+    if(numbers.length > 0) {
+      console.log('+++++++',numbers);
+      numbers.forEach(function(number) {
+        console.log(number);
+        client.messages.create({
+          to: number,
+          from:'+13123455304 ',
+          body:'Did you workout today?!'
+      }, function(error, message) {
+          if (!error) {
+              console.log('Success! The SID for this SMS message is:');
+              console.log(message.sid);
+              console.log('Message sent on:');
+              console.log(message.dateCreated);
+          } else {
+              console.log('Oops! There was an error.', error);
+          }
+      });
+      })
+    }
   })
-  .then((message) => console.log(message.sid));
+  
+  
 }
 
 
