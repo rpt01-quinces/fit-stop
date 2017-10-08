@@ -35,7 +35,7 @@ var exerciseSchema = new Schema({
 var userSchema = new Schema({
   username: String,
   password: String,
-  favorites: [],
+  favorites: {},
   workoutHistory: []
 });
 

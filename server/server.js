@@ -134,9 +134,7 @@ function addWorkout(req, res) {
 }
 
 function favoriteExercise(req, res) {
-  console.log('server side called');
-  console.log('->', req.body);
-  User.findOne({name: req.body.username})
+  User.findOne({username: req.body.username})
   .then(function(user) {
     if (user) {
       user.favorites.push(req.body.currentExercise.name);
@@ -144,7 +142,7 @@ function favoriteExercise(req, res) {
     }
   })
   .then(function() {
-    res.sendStatus(201);
+    res.status(201).send('Favorite added.')
   });
 }
 
