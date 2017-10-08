@@ -3,7 +3,7 @@ class App extends React.Component {
     super();
     this.state = {
       currentState: 'Dashboard',
-      currentWorkout: window.exampleExerciseData,
+      currentWorkout: [],
       currentExercise: 0,
       workoutDate: null,
       workoutHistory: [],
@@ -23,6 +23,7 @@ class App extends React.Component {
     this.goToSignUp = this.goToSignUp.bind(this);
     this.getWorkoutHistory = this.getWorkoutHistory.bind(this);
     this.sendWorkoutData = this.sendWorkoutData.bind(this);
+    this.favorite = this.favorite.bind(this);
     this.logOut = this.logOut.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -57,7 +58,7 @@ class App extends React.Component {
     this.setState({currentState: 'Countdown'});
     this.setState({showButtons: false});
     this.setState({currentExercise: 0});
-   // this.getExercises(); //uncomment to fetch from db
+    this.getExercises();
     this.startCountdown();
   }
 
@@ -127,6 +128,22 @@ class App extends React.Component {
         date: Date(),
         currentWorkout: this.state.currentWorkout,
         lengthOfWorkout: this.state.workoutLengthInMins
+      }),
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (data) {
+        console.log('succesfully posted data!');
+      }
+    });
+  };
+
+  favorite(exercise) {
+    $.ajax({
+      type: 'POST',
+      url: '/user/favorites',
+      data: JSON.stringify({
+        username: this.state.username,
+        currentExercise: exercise
       }),
       contentType: 'application/json',
       dataType: 'json',
@@ -269,7 +286,13 @@ class App extends React.Component {
           return (<Countdown countdown={this.state.countdown} />);
       }
       if (this.state.currentState === 'Workout') {
-        return (<Workout exercise={this.state.currentWorkout[this.state.currentExercise]} timer={this.formatTime(this.state.time)} countdown={this.state.countdown} goToSummary={this.goToSummary} goToDashboard={this.goToDashboard} ref="workoutPage" />);
+        return (<Workout
+        exercise={this.state.currentWorkout[this.state.currentExercise]} timer={this.formatTime(this.state.time)}
+        countdown={this.state.countdown}
+        goToSummary={this.goToSummary}
+        goToDashboard={this.goToDashboard}
+        favorite={this.favorite}
+        ref="workoutPage" />);
       }
       if (this.state.currentState === 'Summary') {
         return (<Summary goToDashboard={this.goToDashboard} currentWorkout={this.state.currentWorkout} workoutDate={this.state.workoutDate} workoutLengthInMins={this.state.workoutLengthInMins} loggedIn={this.state.loggedIn} />);

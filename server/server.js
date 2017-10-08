@@ -38,6 +38,7 @@ app.get('/workout', getWorkout);
 app.get('/history', getHistory);
 
 app.post('/addWorkout', addWorkout);
+app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 
@@ -132,6 +133,18 @@ function addWorkout(req, res) {
   });
 }
 
+function favoriteExercise(req, res) {
+  User.findOne({username: req.body.username})
+  .then(function(user) {
+    if (user) {
+      user.favorites.push(req.body.currentExercise.name);
+      return user.save();
+    }
+  })
+  .then(function() {
+    res.status(201).send('Favorite added.')
+  });
+}
 
 function checkLogin(req, res) {
   var name = req.body.username;
