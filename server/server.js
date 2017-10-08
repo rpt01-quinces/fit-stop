@@ -7,9 +7,6 @@ var Exercise = require('./db').exerciseModel;
 var User = require('./db').userModel;
 var ObjectID = require('mongodb').ObjectID;
 var spotifyHelpers = require('./helpers/spotifyHelpers.js')
-var twilio = require('twilio');
-var accountSid = require('../env/config').accountSid;
-var authToken = require('../env/config').authToken;
 var scheduler = require('./scheduler');
 
 
@@ -47,8 +44,6 @@ app.post('/addWorkout', addWorkout);
 app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
-app.post('/reminder', sendReminder);
-
 
 app.get('/hostLogin', (req, res) => {
   spotifyHelpers.handleHostLogin(req, res);
@@ -207,43 +202,6 @@ function addSignup(req, res) {
       }
     }
   });
-}
-
-function sendReminder(req, res) {
-  var client = new twilio(accountSid, authToken);
-  var numbers = [];
-
-  User.find({}, function(err, users) {
-    if(users) {
-      users.forEach(function(user) {
-        if(user.number) {
-          numbers.push(user.number)
-        }
-      }, this);
-    }
-    if(numbers.length > 0) {
-      console.log('+++++++',numbers);
-      numbers.forEach(function(number) {
-        console.log(number);
-        client.messages.create({
-          to: number,
-          from:'+13123455304 ',
-          body:'Did you workout today?!'
-      }, function(error, message) {
-          if (!error) {
-              console.log('Success! The SID for this SMS message is:');
-              console.log(message.sid);
-              console.log('Message sent on:');
-              console.log(message.dateCreated);
-          } else {
-              console.log('Oops! There was an error.', error);
-          }
-      });
-      })
-    }
-  })
-  
-  
 }
 
 
