@@ -28,7 +28,7 @@ class MusicPlayer extends React.Component {
   // }
 
   render() {
-    return (<iframe src="https://open.spotify.com/embed?uri=spotify:track:54X78diSLoUDI3joC2bjMz" width="400" height="100" frameBorder="0" allowTransparency="true"></iframe>)
+    return (<iframe src={"https://open.spotify.com/embed?uri=" + this.props.songId} width="400" height="100" frameBorder="0" allowTransparency="true"></iframe>)
   }
 }
 

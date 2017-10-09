@@ -364,7 +364,7 @@ getSpotifyToken() {
     spotifyApi.getMyCurrentPlayingTrack()
       .then(data => {
         console.log(data)
-        this.setState({currentSongId : data.item.external_urls.spotify})
+        this.setState({currentSongId : data.item.uri})
       });
   }
 
@@ -408,7 +408,7 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        {this.state.loggedInToSpotify && this.state.currentState !== 'Login' && this.state.currentState !== 'Signup'
+        {this.state.loggedInToSpotify && this.state.currentState !== 'Login' && this.state.currentState !== 'Signup' && this.state.currentSongId
         ?  <MusicPlayer songId={this.state.currentSongId}/>
           : <button onClick={this.loginToSpotify}>Log into Spotify to avtivate player</button>
         }
