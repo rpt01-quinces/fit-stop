@@ -52,7 +52,6 @@ app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 
 app.get('/currentUser', (req, res) => {
-  //console.log(req.session)
   res.send(req.session.user);
 });
 

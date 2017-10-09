@@ -229,8 +229,10 @@ class App extends React.Component {
       data: {
       },
       complete: (data) => {
-        this.setState({username: data.responseText, loggedIn: true})
-        callback();
+        if (data.responseText) {
+          this.setState({username: data.responseText, loggedIn: true})
+          callback();
+        }
       },
       error: function(err) {
         //console.error(err);
@@ -360,7 +362,7 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        <MusicPlayer handleLogin={this.autoLogin} user={this.state.username}/>
+        <MusicPlayer loggedInToSpotify={!!this.getSpotifyToken()}/>
       </div>
     )
   }

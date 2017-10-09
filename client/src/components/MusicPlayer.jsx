@@ -5,8 +5,6 @@ class MusicPlayer extends React.Component {
     super(props);
 
     this.state = {
-      loggedInToSpotify: false,
-      user: this.props.user
     };
     this.handleLoginClick = this.handleLoginClick.bind(this);
   }
@@ -36,7 +34,7 @@ class MusicPlayer extends React.Component {
 
   render() {
     return (<div>
-      {this.state.loggedInToSpotify ?
+      {this.props.loggedInToSpotify ?
          <iframe src="https://open.spotify.com/embed?uri=spotify:track:54X78diSLoUDI3joC2bjMz" width="400" height="100" frameBorder="0" allowTransparency="true"></iframe>
         : <button onClick={this.handleLoginClick}>
         Log in to Spotify to Activate Player
