@@ -63,6 +63,12 @@ app.get('/callback', (req, res) => {
   spotifyHelpers.redirectAfterLogin(req, res);
 });
 
+app.post('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  })
+
+});
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Request Handlers
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

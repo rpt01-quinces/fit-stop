@@ -219,6 +219,19 @@ class App extends React.Component {
     this.setState({loggedIn: false});
     this.setState({username: null});
     this.goToDashboard();
+    $.ajax({
+      method: 'POST',
+      url: '/logout',
+      dataType: 'json',
+      data: {
+      },
+      complete: (data) => {
+        console.log('succesfully logged out');
+      },
+      error: function(err) {
+        //console.error(err);
+      }
+    });
   }
 
   getCurrentUser(callback) {

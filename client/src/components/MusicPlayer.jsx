@@ -9,12 +9,8 @@ class MusicPlayer extends React.Component {
     this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
-  componentDidMount() {
-  }
-
   handleLoginClick() {
     window.location.href = '/hostLogin';
-    this.props.handleLogin(this.props.user);
   }
 
   // playCurrentSong(deviceId, trackId) {
