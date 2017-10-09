@@ -32,9 +32,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (this.getSpotifyToken()) {
-      this.getCurrentUser();
-    }
+      this.getCurrentUser(this.goToDashboard);
   }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -42,11 +40,9 @@ class App extends React.Component {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   goToDashboard() {
-    console.log('going to dashboard')
-    //this.getCurrentUser();
     this.setState({currentState: 'Dashboard'});
     this.setState({showButtons: true});
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn && this.state.username) {
       this.getWorkoutHistory();
     }
     if (this.state.interval) {
@@ -162,7 +158,6 @@ class App extends React.Component {
   };
 
   login(event) {
-    console.log('logging in')
     event.preventDefault();
     const data = new FormData(event.target);
     var username = data.get('username');
@@ -226,8 +221,7 @@ class App extends React.Component {
     this.goToDashboard();
   }
 
-  getCurrentUser() {
-    console.log('getting user')
+  getCurrentUser(callback) {
      $.ajax({
       method: 'GET',
       url: '/currentUser',
@@ -235,11 +229,11 @@ class App extends React.Component {
       data: {
       },
       complete: (data) => {
-        console.log('current user request:', data.responseText);
         this.setState({username: data.responseText, loggedIn: true})
+        callback();
       },
       error: function(err) {
-        console.error(err);
+        //console.error(err);
       }
     });
 
@@ -301,7 +295,6 @@ class App extends React.Component {
   MusicPlayer helpers
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 getSpotifyToken() {
-    console.log('getting spotify token')
     const getHashParams = () => {
     let hashParams = {};
     let e, r = /([^&;=]+)=?([^&;]*)/g;

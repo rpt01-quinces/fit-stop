@@ -57,12 +57,10 @@ app.get('/currentUser', (req, res) => {
 });
 
 app.get('/hostLogin', (req, res) => {
-  //console.log(req.session)
   spotifyHelpers.handleHostLogin(req, res);
 });
 
 app.get('/callback', (req, res) => {
-  console.log(req.session.user)
   spotifyHelpers.redirectAfterLogin(req, res);
 });
 
@@ -71,7 +69,7 @@ app.get('/callback', (req, res) => {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 function getHistory(req, res) {
-  var name = req.query.username;
+  var name = req.query.username || req.session.user;
   User.findOne({username: name}, function(err, data) {
     if(err) {
       console.log('err happened with cooldown retrieval: ' + err);
