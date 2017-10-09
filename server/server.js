@@ -51,11 +51,18 @@ app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 
+app.get('/currentUser', (req, res) => {
+  //console.log(req.session)
+  res.send(req.session.user);
+});
+
 app.get('/hostLogin', (req, res) => {
+  //console.log(req.session)
   spotifyHelpers.handleHostLogin(req, res);
 });
 
 app.get('/callback', (req, res) => {
+  console.log(req.session.user)
   spotifyHelpers.redirectAfterLogin(req, res);
 });
 
@@ -164,6 +171,7 @@ function checkLogin(req, res) {
     } else {
       if (data) {
         if (bcrypt.compareSync(pass, data.password)=== true) {
+          req.session.user = name;
           res.status(200).send('Log in success');
         } else {
           res.status(400).send('Log in attempt failed');

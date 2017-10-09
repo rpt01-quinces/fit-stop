@@ -27,10 +27,15 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-    this.autoLogin = this.autoLogin.bind(this);
-
+    this.getCurrentUser = this.getCurrentUser.bind(this);
+    this.getSpotifyToken = this.getSpotifyToken.bind(this);
   }
 
+  componentDidMount() {
+    if (this.getSpotifyToken()) {
+      this.getCurrentUser();
+    }
+  }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   The following functions change the view on the app
@@ -38,6 +43,7 @@ class App extends React.Component {
 
   goToDashboard() {
     console.log('going to dashboard')
+    //this.getCurrentUser();
     this.setState({currentState: 'Dashboard'});
     this.setState({showButtons: true});
     if (this.state.loggedIn) {
@@ -214,14 +220,29 @@ class App extends React.Component {
     });
   }
 
-  autoLogin(user) {
-    this.setState({username: user, loggedIn: true});
-  }
-
   logOut() {
     this.setState({loggedIn: false});
     this.setState({username: null});
     this.goToDashboard();
+  }
+
+  getCurrentUser() {
+    console.log('getting user')
+     $.ajax({
+      method: 'GET',
+      url: '/currentUser',
+      dataType: 'json',
+      data: {
+      },
+      complete: (data) => {
+        console.log('current user request:', data.responseText);
+        this.setState({username: data.responseText, loggedIn: true})
+      },
+      error: function(err) {
+        console.error(err);
+      }
+    });
+
   }
 
 
