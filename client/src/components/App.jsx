@@ -12,7 +12,8 @@ class App extends React.Component {
       countdown: 3,
       time: null,
       showButtons: true,
-      workoutLengthInMins: 15
+      workoutLengthInMins: 15,
+      loggedInToSpotify: false
     };
 
     this.goToWorkout = this.goToWorkout.bind(this);
@@ -32,7 +33,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-      this.getCurrentUser(this.goToDashboard);
+    if (this.getSpotifyToken()) {
+      this.setState({loggedInToSpotify: true});
+    }
+    this.getCurrentUser(this.goToDashboard);
   }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -227,6 +231,7 @@ class App extends React.Component {
       },
       complete: (data) => {
         console.log('succesfully logged out');
+        this.setState({loggedInToSpotify: false})
       },
       error: function(err) {
         //console.error(err);
@@ -339,6 +344,10 @@ getSpotifyToken() {
       });
   }
 
+  loginToSpotify() {
+    window.location.href = '/hostLogin';
+  }
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Renders the components based ot the current state
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -375,7 +384,10 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        <MusicPlayer loggedInToSpotify={!!this.getSpotifyToken()}/>
+        {this.state.loggedInToSpotify && this.state.currentState !== 'Login' this.state.currentState !== 'Signup'
+        ?  <MusicPlayer />
+          : <button onClick={this.loginToSpotify}>Log into Spotify to avtivate player</button>
+        }
       </div>
     )
   }

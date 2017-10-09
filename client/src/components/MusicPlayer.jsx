@@ -6,12 +6,11 @@ class MusicPlayer extends React.Component {
 
     this.state = {
     };
-    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
-  handleLoginClick() {
-    window.location.href = '/hostLogin';
-  }
+  // handleLoginClick() {
+  //   window.location.href = '/hostLogin';
+  // }
 
   // playCurrentSong(deviceId, trackId) {
   //   spotifyApi.play({
@@ -29,14 +28,7 @@ class MusicPlayer extends React.Component {
   // }
 
   render() {
-    return (<div>
-      {this.props.loggedInToSpotify ?
-         <iframe src="https://open.spotify.com/embed?uri=spotify:track:54X78diSLoUDI3joC2bjMz" width="400" height="100" frameBorder="0" allowTransparency="true"></iframe>
-        : <button onClick={this.handleLoginClick}>
-        Log in to Spotify to Activate Player
-        </button>
-      }
-    </div>)
+    return (<iframe src="https://open.spotify.com/embed?uri=spotify:track:54X78diSLoUDI3joC2bjMz" width="400" height="100" frameBorder="0" allowTransparency="true"></iframe>)
   }
 }
 
