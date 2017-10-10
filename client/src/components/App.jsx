@@ -421,7 +421,7 @@ getSpotifyToken() {
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
         {this.state.loggedInToSpotify && this.state.currentState !== 'Login' && this.state.currentState !== 'Signup' && this.state.currentAlbumId
-        ?  <MusicPlayer songId={this.state.currentAlbumId}/>
+        ?  <MusicPlayer albumId={this.state.currentAlbumId}/>
           : <button onClick={this.loginToSpotify}>Log into Spotify to avtivate player</button>
         }
       </div>
