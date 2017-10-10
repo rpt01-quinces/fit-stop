@@ -15,7 +15,7 @@ class App extends React.Component {
       workoutLengthInMins: 15,
       loggedInToSpotify: false,
       deviceId: '',
-      currentSongId: null
+      currentAlbumId: null
     };
 
     this.goToWorkout = this.goToWorkout.bind(this);
@@ -38,7 +38,7 @@ class App extends React.Component {
     if (this.getSpotifyToken()) {
       this.setState({loggedInToSpotify: true});
       this.getDeviceId();
-      this.getCurrentSong();
+      this.getCurrentAlbum();
     }
     this.getCurrentUser(this.goToDashboard);
   }
@@ -88,6 +88,9 @@ class App extends React.Component {
     clearInterval(this.state.interval);
     if (this.state.loggedIn) {
       this.sendWorkoutData();
+    }
+    if (this.state.loggedInToSpotify) {
+      this.stopPlayback();
     }
   }
 
@@ -353,18 +356,27 @@ getSpotifyToken() {
 
   startPlayback() {
     spotifyApi.play({
-      device_id: this.state.deviceId
+      device_id: this.state.deviceId,
+      context_uri: this.state.currentAlbumId
     })
       .then(() => {
         console.log('starting playback')
       })
   }
 
-  getCurrentSong() {
+  stopPlayback() {
+    spotifyApi.pause({
+      device_id: this.state.deviceId
+    })
+      .then(() => {
+        console.log('stopping playback')
+      })
+  }
+
+  getCurrentAlbum() {
     spotifyApi.getMyCurrentPlayingTrack()
       .then(data => {
-        console.log(data)
-        this.setState({currentSongId : data.item.uri})
+        this.setState({currentAlbumId : data.item.album.uri})
       });
   }
 
@@ -408,8 +420,8 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        {this.state.loggedInToSpotify && this.state.currentState !== 'Login' && this.state.currentState !== 'Signup' && this.state.currentSongId
-        ?  <MusicPlayer songId={this.state.currentSongId}/>
+        {this.state.loggedInToSpotify && this.state.currentState !== 'Login' && this.state.currentState !== 'Signup' && this.state.currentAlbumId
+        ?  <MusicPlayer songId={this.state.currentAlbumId}/>
           : <button onClick={this.loginToSpotify}>Log into Spotify to avtivate player</button>
         }
       </div>
