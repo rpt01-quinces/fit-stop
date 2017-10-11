@@ -377,7 +377,6 @@ getSpotifyToken() {
     spotifyApi.getMyCurrentPlayingTrack()
       .then(data => {
         this.setState({currentAlbumId : data.item.album.uri})
-      });
   }
 
 
