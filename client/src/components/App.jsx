@@ -17,7 +17,8 @@ class App extends React.Component {
       workoutLengthInMins: 15,
       loggedInToSpotify: false,
       deviceId: '',
-      currentAlbumId: null
+      currentAlbumId: null,
+      devices: ''
     };
 
     this.goToWorkout = this.goToWorkout.bind(this);
@@ -345,7 +346,8 @@ getSpotifyToken() {
   getDeviceId() {
     spotifyApi.getMyDevices()
       .then((data) => {
-        this.setState({deviceId : data.devices[0].id})
+        this.setState({deviceId : data.devices[0].id,
+                        devices: data.devices})
       }, (err) =>{
         console.error(err);
       });
@@ -426,7 +428,10 @@ getSpotifyToken() {
           && this.state.currentState !== 'SignUp'
           &&  this.state.loggedInToSpotify
           && this.state.currentAlbumId
-          ? <MusicPlayer albumId={this.state.currentAlbumId}/>
+          ? <MusicPlayer
+              albumId={this.state.currentAlbumId}
+              devices={this.state.devices}
+            />
           : this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
           && <MusicLoginButton
