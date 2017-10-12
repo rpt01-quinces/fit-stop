@@ -384,7 +384,7 @@ getSpotifyToken() {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Renders the components based ot the current state
+  Renders the components based on the current state
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   render() {
@@ -426,7 +426,9 @@ getSpotifyToken() {
           ? <MusicPlayer albumId={this.state.currentAlbumId}/>
           : this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
-          && <button onClick={this.loginToSpotify}>Log into Spotify to activate player</button>
+          && <div className='musicButton' onClick={this.loginToSpotify}>
+            <div className='musicBtnText'>Log into Spotify to activate player</div>
+          </div>
         }
       </div>
     )
