@@ -94,7 +94,6 @@ class App extends React.Component {
     }
   }
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   The following functions send requests to the server
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -377,6 +376,7 @@ getSpotifyToken() {
     spotifyApi.getMyCurrentPlayingTrack()
       .then(data => {
         this.setState({currentAlbumId : data.item.album.uri})
+      });
   }
 
 
@@ -419,9 +419,14 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        {this.state.loggedInToSpotify && this.state.currentState !== 'Login' && this.state.currentState !== 'Signup' && this.state.currentAlbumId
-        ?  <MusicPlayer albumId={this.state.currentAlbumId}/>
-          : <button onClick={this.loginToSpotify}>Log into Spotify to avtivate player</button>
+        {this.state.currentState !== 'Login'
+          && this.state.currentState !== 'SignUp'
+          && this.state.currentAlbumId
+          &&  this.state.loggedInToSpotify
+          ? <MusicPlayer albumId={this.state.currentAlbumId}/>
+          : this.state.currentState !== 'Login'
+          && this.state.currentState !== 'SignUp'
+          && <button onClick={this.loginToSpotify}>Log into Spotify to activate player</button>
         }
       </div>
     )

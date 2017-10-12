@@ -328,16 +328,5 @@ input[type=submit] {
   margin-bottom: 20px;
 }
 
-.musicButton {
-  border: 2px solid #3b8fb5;
-  border-radius: 70px;
-  width: 300px;
-  height: 40px;
-  color: #3b8fb5;
-}
 
-.buttonTxt {
-  text-align: center;
-  margin-top: 10px;
 
-}
