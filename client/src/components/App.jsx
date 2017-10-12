@@ -1,3 +1,5 @@
+
+
 class App extends React.Component {
   constructor() {
     super();
@@ -376,7 +378,8 @@ getSpotifyToken() {
     spotifyApi.getMyCurrentPlayingTrack()
       .then(data => {
         this.setState({currentAlbumId : data.item.album.uri})
-      });
+      })
+      .catch(err => console.log(err));
   }
 
 
@@ -421,14 +424,12 @@ getSpotifyToken() {
         {toBeRendered()}
         {this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
-          && this.state.currentAlbumId
           &&  this.state.loggedInToSpotify
+          && this.state.albumId
           ? <MusicPlayer albumId={this.state.currentAlbumId}/>
           : this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
-          && <div className='musicButton' onClick={this.loginToSpotify}>
-            <div className='musicBtnText'>Log into Spotify to activate player</div>
-          </div>
+          && <MusicLoginButton handleClick={this.loginToSpotify}/>
         }
       </div>
     )
