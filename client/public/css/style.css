@@ -328,5 +328,24 @@ input[type=submit] {
   margin-bottom: 20px;
 }
 
+.musicButton {
+  border: 2px solid #3b8fb5;
+  border-radius: 20px;
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  color: #3b8fb5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: white;
+  transition: background-color 0.4s ease;
+  transition: color 0.4s ease;
+}
+
+.musicButton:hover {
+  background-color: #3b8fb5;
+  color: white;
+  cursor: pointer;
+}
 
 

@@ -1,6 +1,9 @@
 var express = require('express')
 var bodyParser = require('body-parser');
 var path = require('path');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
 
 var db = require('./db').mongoose;
 var Exercise = require('./db').exerciseModel;
@@ -25,6 +28,9 @@ app.use('/jquery', express.static('node_modules/jquery/dist'));
 app.use('/spotify-web-api-js', express.static('node_modules/spotify-web-api-js/src'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('shhhh, very secret'));
+app.use(session());
+
 
 console.log('server is running');
 
@@ -45,6 +51,10 @@ app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 
+app.get('/currentUser', (req, res) => {
+  res.send(req.session.user);
+});
+
 app.get('/hostLogin', (req, res) => {
   spotifyHelpers.handleHostLogin(req, res);
 });
@@ -53,12 +63,18 @@ app.get('/callback', (req, res) => {
   spotifyHelpers.redirectAfterLogin(req, res);
 });
 
+app.post('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  })
+
+});
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Request Handlers
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 function getHistory(req, res) {
-  var name = req.query.username;
+  var name = req.query.username || req.session.user;
   User.findOne({username: name}, function(err, data) {
     if(err) {
       console.log('err happened with cooldown retrieval: ' + err);
@@ -158,6 +174,7 @@ function checkLogin(req, res) {
     } else {
       if (data) {
         if (bcrypt.compareSync(pass, data.password)=== true) {
+          req.session.user = name;
           res.status(200).send('Log in success');
         } else {
           res.status(400).send('Log in attempt failed');

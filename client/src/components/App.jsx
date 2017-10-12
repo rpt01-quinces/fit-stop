@@ -12,7 +12,10 @@ class App extends React.Component {
       countdown: 3,
       time: null,
       showButtons: true,
-      workoutLengthInMins: 15
+      workoutLengthInMins: 15,
+      loggedInToSpotify: false,
+      deviceId: '',
+      currentAlbumId: null
     };
 
     this.goToWorkout = this.goToWorkout.bind(this);
@@ -27,9 +30,18 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-
+    this.getCurrentUser = this.getCurrentUser.bind(this);
+    this.getSpotifyToken = this.getSpotifyToken.bind(this);
   }
 
+  componentDidMount() {
+    if (this.getSpotifyToken()) {
+      this.setState({loggedInToSpotify: true});
+      this.getDeviceId();
+      this.getCurrentAlbum();
+    }
+    this.getCurrentUser(this.goToDashboard);
+  }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   The following functions change the view on the app
@@ -38,7 +50,7 @@ class App extends React.Component {
   goToDashboard() {
     this.setState({currentState: 'Dashboard'});
     this.setState({showButtons: true});
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn && this.state.username) {
       this.getWorkoutHistory();
     }
     if (this.state.interval) {
@@ -65,6 +77,7 @@ class App extends React.Component {
   goToWorkout() {
     this.setState({currentState: 'Workout'});
     this.startTimer();
+    this.startPlayback();
   }
 
   goToSummary() {
@@ -76,8 +89,10 @@ class App extends React.Component {
     if (this.state.loggedIn) {
       this.sendWorkoutData();
     }
+    if (this.state.loggedInToSpotify) {
+      this.stopPlayback();
+    }
   }
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   The following functions send requests to the server
@@ -110,7 +125,6 @@ class App extends React.Component {
         lengthOfWorkout: this.state.workoutLengthInMins
       },
       complete: (data) => {
-        console.log('exercise data:', data);
         this.setState({currentWorkout: JSON.parse(data.responseText)})
       },
       error: function(err) {
@@ -215,6 +229,40 @@ class App extends React.Component {
     this.setState({loggedIn: false});
     this.setState({username: null});
     this.goToDashboard();
+    $.ajax({
+      method: 'POST',
+      url: '/logout',
+      dataType: 'json',
+      data: {
+      },
+      complete: (data) => {
+        console.log('succesfully logged out');
+        this.setState({loggedInToSpotify: false})
+      },
+      error: function(err) {
+        //console.error(err);
+      }
+    });
+  }
+
+  getCurrentUser(callback) {
+     $.ajax({
+      method: 'GET',
+      url: '/currentUser',
+      dataType: 'json',
+      data: {
+      },
+      complete: (data) => {
+        if (data.responseText) {
+          this.setState({username: data.responseText, loggedIn: true})
+          callback();
+        }
+      },
+      error: function(err) {
+        //console.error(err);
+      }
+    });
+
   }
 
 
@@ -270,7 +318,73 @@ class App extends React.Component {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Renders the components based ot the current state
+  MusicPlayer helpers
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+getSpotifyToken() {
+    const getHashParams = () => {
+    let hashParams = {};
+    let e, r = /([^&;=]+)=?([^&;]*)/g;
+    let q = window.location.hash.substring(1);
+    while ( e = r.exec(q)) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+      return hashParams;
+    }
+
+    const params = getHashParams();
+    const access_token = params.access_token;
+    const refresh_token = params.refresh_token;
+
+    spotifyApi.setAccessToken(access_token);
+    return access_token;
+  }
+
+  //get the active device for the host user who is signed in to Spotify
+  getDeviceId() {
+    spotifyApi.getMyDevices()
+      .then((data) => {
+        this.setState({deviceId : data.devices[0].id})
+      }, (err) =>{
+        console.error(err);
+      });
+  }
+
+  loginToSpotify() {
+    window.location.href = '/hostLogin';
+  }
+
+  startPlayback() {
+    spotifyApi.play({
+      device_id: this.state.deviceId,
+      context_uri: this.state.currentAlbumId
+    })
+      .then(() => {
+        console.log('starting playback')
+      })
+  }
+
+  stopPlayback() {
+    spotifyApi.pause({
+      device_id: this.state.deviceId
+    })
+      .then(() => {
+        console.log('stopping playback')
+      })
+  }
+
+  getCurrentAlbum() {
+    spotifyApi.getMyCurrentPlayingTrack()
+      .then(data => {
+        this.setState({currentAlbumId : data.item.album.uri})
+      });
+  }
+
+
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Renders the components based on the current state
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   render() {
@@ -305,7 +419,17 @@ class App extends React.Component {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        <MusicPlayer />
+        {this.state.currentState !== 'Login'
+          && this.state.currentState !== 'SignUp'
+          && this.state.currentAlbumId
+          &&  this.state.loggedInToSpotify
+          ? <MusicPlayer albumId={this.state.currentAlbumId}/>
+          : this.state.currentState !== 'Login'
+          && this.state.currentState !== 'SignUp'
+          && <div className='musicButton' onClick={this.loginToSpotify}>
+            <div className='musicBtnText'>Log into Spotify to activate player</div>
+          </div>
+        }
       </div>
     )
   }
