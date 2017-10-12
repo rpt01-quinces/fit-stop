@@ -348,4 +348,7 @@ input[type=submit] {
   cursor: pointer;
 }
 
+.deviceWarning {
+  text-align: center;
+}
 

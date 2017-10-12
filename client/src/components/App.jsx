@@ -425,11 +425,15 @@ getSpotifyToken() {
         {this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
           &&  this.state.loggedInToSpotify
-          && this.state.albumId
+          && this.state.currentAlbumId
           ? <MusicPlayer albumId={this.state.currentAlbumId}/>
           : this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
-          && <MusicLoginButton handleClick={this.loginToSpotify}/>
+          && <MusicLoginButton
+                loggedIn={this.state.loggedInToSpotify}
+                activeDeviceFound={this.state.albumId}
+                handleClick={this.loginToSpotify}
+             />
         }
       </div>
     )
