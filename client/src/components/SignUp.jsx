@@ -6,9 +6,10 @@ var SignUp = (props) => (
       <input id="username" type="text" name="username"/>
       <label htmlFor="password">Password:</label>
       <input id="password" type="password" name="password"/>
-      <label htmlFor="phonenumber">Phone Number:  </label>
+      <label htmlFor="phonenumber">Phone Number (optional):  </label>
       <input id="phonenumber" type="text" name="phonenumber"/>
       <input type="submit" value="Sign Up"/>
+      <p>By putting in your phone number you are agreeing to receive text message reminders</p>
     </form>
   </div>
 );
