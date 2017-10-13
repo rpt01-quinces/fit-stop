@@ -46,6 +46,7 @@ app.get('/', (req,res)=> {
 });
 app.get('/workout', getWorkout);
 app.get('/history', getHistory);
+app.get('/user/favorites', getUserFavorites);
 
 app.post('/addWorkout', addWorkout);
 app.post('/user/favorites', favoriteExercise);
@@ -126,6 +127,13 @@ function getWorkout(req, res) {
         }
       });
     }
+  });
+}
+
+function getUserFavorites(req, res) {
+  User.findOne({username: req.query.username})
+  .then(function(user) {
+    if (user) { res.json(user.favorites); }
   });
 }
 
