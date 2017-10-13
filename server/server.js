@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var moment = require('moment');
 
 
 var db = require('./db').mongoose;
@@ -50,6 +51,7 @@ app.post('/addWorkout', addWorkout);
 app.post('/user/favorites', favoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
+app.post('/remind', reminder);
 
 app.get('/currentUser', (req, res) => {
   res.send(req.session.user);
@@ -220,5 +222,27 @@ function addSignup(req, res) {
     }
   });
 }
+
+function reminder(req, res) {
+  User.find({username: 'dandreaj'}, function(err, user) {
+    if(err) {
+      console.log("Database error "+err);
+    } else {
+      console.log(user[0].workoutHistory);
+      let today = moment(new Date())
+      // let today = moment('Mon Oct 09 2017 20:11:37 GMT-0500 (CDT)');
+      
+      console.log('+++++', today);
+      for(var i = 0; i< user[0].workoutHistory.length; i++) {
+        let date = moment(user[0].workoutHistory[i].date);
+        if(today.isSame(date, "d")) {
+          console.log("dates are equal");
+        } else {
+          console.log("dates do not equal");
+        }
+      }
+    }
+  })
+} 
 
 
