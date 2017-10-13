@@ -35,12 +35,13 @@ class App extends React.Component {
     this.signup = this.signup.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
     this.getSpotifyToken = this.getSpotifyToken.bind(this);
+    this.setDevice = this.setDevice.bind(this);
   }
 
   componentDidMount() {
     if (this.getSpotifyToken()) {
       this.setState({loggedInToSpotify: true});
-      this.getDeviceId();
+      this.getDevices();
       this.getCurrentAlbum();
     }
     this.getCurrentUser(this.goToDashboard);
@@ -343,11 +344,12 @@ getSpotifyToken() {
   }
 
   //get the active device for the host user who is signed in to Spotify
-  getDeviceId() {
+  getDevices() {
     spotifyApi.getMyDevices()
       .then((data) => {
-        this.setState({deviceId : data.devices[0].id,
-                        devices: data.devices})
+        this.setState({devices: data.devices,
+                       deviceId: data.devices[0].id
+                      });
       }, (err) =>{
         console.error(err);
       });
@@ -384,6 +386,9 @@ getSpotifyToken() {
       .catch(err => console.log(err));
   }
 
+  setDevice(deviceId) {
+    this.setState({deviceId: deviceId});
+  }
 
 
 
@@ -428,9 +433,11 @@ getSpotifyToken() {
           && this.state.currentState !== 'SignUp'
           &&  this.state.loggedInToSpotify
           && this.state.currentAlbumId
+          && this.state.deviceId
           ? <MusicPlayer
               albumId={this.state.currentAlbumId}
               devices={this.state.devices}
+              handleDeviceSelect={this.setDevice}
             />
           : this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'

@@ -1,7 +1,11 @@
 const spotifyApi = new SpotifyWebApi;
 
 var MusicPlayer = (props) => {
-  console.log(props.devices)
+
+  var handleSelect = (e) => {
+    props.handleDeviceSelect(e.target.value);
+  }
+
   return (
     <div>
       <iframe
@@ -10,9 +14,9 @@ var MusicPlayer = (props) => {
       frameBorder="0"
       allowTransparency="true">
       </iframe>
-      <select>
+      <select onChange={handleSelect}>
       {props.devices.map((device) => {
-        return <option value={device.name}>{device.name}</option>
+        return <option value={device.id}>{device.name}</option>
       })}
       </select>
     </div>)
