@@ -70,6 +70,7 @@ class App extends React.Component {
     this.setState({currentState: 'Countdown'});
     this.setState({showButtons: false});
     this.setState({currentExercise: 0});
+    this.getUserFavorites();
     this.getExercises();
     this.startCountdown();
   }
@@ -112,6 +113,22 @@ class App extends React.Component {
       },
       error: function(err) {
         console.error(err);
+      }
+    });
+  }
+
+  getUserFavorites() {
+    $.ajax({
+      url: '/user/favorites',
+      method: 'GET',
+      data: {
+        username: this.state.username
+      },
+      success: function(data) {
+        console.log('get success', data);
+      },
+      error: function(err) {
+        console.error('get failure');
       }
     });
   }
