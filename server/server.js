@@ -157,7 +157,7 @@ function favoriteExercise(req, res) {
   User.findOne({username: req.body.username})
   .then(function(user) {
     if (user) {
-      user.favorites.push(req.body.currentExercise.name);
+      user.favorites.push(req.body.exercise.name);
       return user.save();
     }
   })

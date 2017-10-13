@@ -153,16 +153,18 @@ class App extends React.Component {
 
   favorite(exercise) {
     $.ajax({
-      type: 'POST',
       url: '/user/favorites',
+      method: 'POST',
       data: JSON.stringify({
         username: this.state.username,
-        currentExercise: exercise
+        exercise: exercise
       }),
       contentType: 'application/json',
-      dataType: 'json',
       success: function (data) {
-        console.log('succesfully posted data!');
+        console.log('post success', data);
+      },
+      error: function(error) {
+        console.log('post failure');
       }
     });
   };
