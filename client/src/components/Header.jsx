@@ -5,7 +5,6 @@ var Header = (props) => (
     {!props.loggedIn && props.showButtons && (<button className='blackButton' onClick={props.goToSignUp}>Sign Up</button>)}
     <div>
       <h1> FitStop <span className='username'>{props.username}</span></h1>
-      <button>Send Text</button>
     </div>
   </div>
 );
