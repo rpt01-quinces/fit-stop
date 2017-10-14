@@ -5,7 +5,7 @@ class Exercise extends React.Component {
 
   render() {
     var style = {
-      backgroundColor: this.props.userFavorites.includes(this.props.exercise.name) ? 'red' : null
+      opacity: this.props.userFavorites.includes(this.props.exercise.name) ? 1 : 0.5
     };
 
     return(
@@ -14,7 +14,9 @@ class Exercise extends React.Component {
           <img className="exerciseImage" src={this.props.exercise.picture} />
           <p>
             <span className="exerciseName">{this.props.exercise.name}</span>
-            <button style={style} onClick={ () => {this.props.favorite(this.props.exercise);} }>favorite</button>
+            <a href='#'>
+              <img src='/public/images/pizzafavor.png' className='pizzafavor' style={style} onClick={ () => {this.props.favorite(this.props.exercise);} } />
+            </a>
           </p>
           {this.props.exercise.description}
         </div>
