@@ -18,3 +18,9 @@ env/credentials.js
 node_modules
 
 .idea/workspace.xml
+
+./polly/credentials.json
+
+./client/public/audio
+
+
