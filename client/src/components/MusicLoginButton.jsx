@@ -11,4 +11,5 @@ var MusicLoginButton = (props) => {
   )
 }
 
+
 window.MusicLoginButton = MusicLoginButton;
