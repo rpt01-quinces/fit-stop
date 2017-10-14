@@ -14,6 +14,7 @@ class Workout extends React.Component {
 * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * * * */
 
   componentDidMount() {
+
     this.highlightActiveTitle();
   }
 
@@ -42,7 +43,7 @@ class Workout extends React.Component {
 
         <Timer timer= {this.props.timer} />
         <Exercise exercise={this.props.exercise} userFavorites={this.props.userFavorites} favoriteOrUnfavorite={this.props.favoriteOrUnfavorite} />
-
+        <ExerciseAudio source={`/public/audio/${this.props.exercise.name.replace(' ', '_')}.mp3`} />
         <button onClick={this.props.goToDashboard} className="blackButton">Quit & Back To Dashboard</button>
         <button onClick={this.props.goToSummary} className="blackButton">Summary</button>
       </div>
