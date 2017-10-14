@@ -3,6 +3,7 @@ class App extends React.Component {
     super();
     this.state = {
       currentState: 'Dashboard',
+      userFavorites: [],
       currentWorkout: [],
       currentExercise: 0,
       workoutDate: null,
@@ -124,9 +125,10 @@ class App extends React.Component {
       data: {
         username: this.state.username
       },
-      success: function(data) {
+      success: (function(data) {
         console.log('get success', data);
-      },
+        this.setState({userFavorites: data});
+      }).bind(this),
       error: function(err) {
         console.error('get failure');
       }
@@ -426,6 +428,7 @@ getSpotifyToken() {
         countdown={this.state.countdown}
         goToSummary={this.goToSummary}
         goToDashboard={this.goToDashboard}
+        userFavorites={this.state.userFavorites}
         favorite={this.favorite}
         ref="workoutPage" />);
       }
