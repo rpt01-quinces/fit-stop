@@ -175,12 +175,20 @@ class App extends React.Component {
   };
 
   favorite(exercise) {
+    var favorited;
+    if (this.state.userFavorites.includes(exercise.name)) {
+      favorited = true;
+    } else {
+      favorited = false;
+    }
+
     $.ajax({
       url: '/user/favorites',
       method: 'POST',
       data: JSON.stringify({
         username: this.state.username,
-        exercise: exercise
+        exercise: exercise,
+        favorited: favorited
       }),
       contentType: 'application/json',
       success: (function (data) {

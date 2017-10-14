@@ -1,19 +1,11 @@
-/node_modules
-
-.DS_Store
-
-
-server/dbInfo.js
-server/seedDb.js
-env/config.js
-
+node_modules
 client/public/compiled
 
-.flooignore
-
-.floo
-
+env/config.js
 env/credentials.js
+server/dbInfo.js
+server/seedDb.js
+
 
 node_modules
 
@@ -23,4 +15,7 @@ node_modules
 
 /client/public/audio
 
+
+
+.DS_Store
 
