@@ -14,6 +14,7 @@ class Workout extends React.Component {
 * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * * * */
 
   componentDidMount() {
+     console.log(this.props.exercise.name.replace(' ', '_'))
     this.highlightActiveTitle();
   }
 
@@ -41,7 +42,12 @@ class Workout extends React.Component {
         <span className={'cooldownTitle ' + (this.state.cooldownActive ? 'activeTitle' : null)}>Cooldown</span>
 
         <Timer timer= {this.props.timer} />
+<<<<<<< HEAD
         <Exercise exercise={this.props.exercise} userFavorites={this.props.userFavorites} favoriteOrUnfavorite={this.props.favoriteOrUnfavorite} />
+=======
+        <Exercise exercise={this.props.exercise} userFavorites={this.props.userFavorites} favorite={this.props.favorite} />
+        <ExerciseAudio source={`/public/audio/${this.props.exercise.name.replace(' ', '_')}.mp3`} />
+>>>>>>> exercise audio description plays at start of exercise
         <button onClick={this.props.goToDashboard} className="blackButton">Quit & Back To Dashboard</button>
         <button onClick={this.props.goToSummary} className="blackButton">Summary</button>
       </div>

@@ -81,6 +81,7 @@ class App extends React.Component {
   }
 
   goToWorkout() {
+    console.log('going to workout')
     this.setState({currentState: 'Workout'});
     this.startTimer();
     this.startPlayback();
@@ -149,6 +150,7 @@ class App extends React.Component {
       },
       complete: (data) => {
         this.setState({currentWorkout: JSON.parse(data.responseText)})
+        console.log('getting exercises')
       },
       error: function(err) {
         console.error(err);
@@ -350,7 +352,9 @@ class App extends React.Component {
     return mm + ':' + ss;
   }
 
+  playExerciseAudio(exerciseName) {
 
+  }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   MusicPlayer helpers
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -460,7 +464,6 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
-        <ExerciseAudio source='/public/audio/fitstop_test.mp3' />
         {this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
           &&  this.state.loggedInToSpotify
