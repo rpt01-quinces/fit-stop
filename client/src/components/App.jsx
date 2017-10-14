@@ -179,9 +179,10 @@ class App extends React.Component {
         exercise: exercise
       }),
       contentType: 'application/json',
-      success: function (data) {
+      success: (function (data) {
         console.log('post success', data);
-      },
+        this.getUserFavorites();
+      }).bind(this),
       error: function(error) {
         console.log('post failure');
       }
