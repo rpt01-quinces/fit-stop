@@ -49,7 +49,7 @@ app.get('/history', getHistory);
 app.get('/user/favorites', getUserFavorites);
 
 app.post('/addWorkout', addWorkout);
-app.post('/user/favorites', favoriteExercise);
+app.post('/user/favorites', favoriteOrUnfavoriteExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 app.post('/remind', reminder);
@@ -161,16 +161,21 @@ function addWorkout(req, res) {
   });
 }
 
-function favoriteExercise(req, res) {
+function favoriteOrUnfavoriteExercise(req, res) {
   User.findOne({username: req.body.username})
   .then(function(user) {
     if (user) {
-      user.favorites.push(req.body.exercise.name);
+      if (req.body.favorited) {
+        var toBeDeletedIndex = user.favorites.indexOf(req.body.exercise.name);
+        user.favorites.splice(1, toBeDeletedIndex);
+      } else {
+        user.favorites.push(req.body.exercise.name);
+      }
       return user.save();
     }
   })
   .then(function() {
-    res.status(201).send('Favorite added.')
+    res.status(201).send('Favorite/Unfavorite saved')
   });
 }
 
@@ -239,7 +244,7 @@ function reminder(req, res) {
       console.log(user[0].workoutHistory);
       let today = moment(new Date())
       // let today = moment('Mon Oct 09 2017 20:11:37 GMT-0500 (CDT)');
-      
+
       console.log('+++++', today);
       for(var i = 0; i< user[0].workoutHistory.length; i++) {
         let date = moment(user[0].workoutHistory[i].date);
@@ -251,6 +256,6 @@ function reminder(req, res) {
       }
     }
   })
-} 
+}
 
 
