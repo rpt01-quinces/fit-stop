@@ -1,3 +1,5 @@
+
+
 class App extends React.Component {
   constructor() {
     super();
@@ -15,7 +17,8 @@ class App extends React.Component {
       workoutLengthInMins: 15,
       loggedInToSpotify: false,
       deviceId: '',
-      currentAlbumId: null
+      currentAlbumId: null,
+      devices: ''
     };
 
     this.goToWorkout = this.goToWorkout.bind(this);
@@ -32,12 +35,13 @@ class App extends React.Component {
     this.signup = this.signup.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
     this.getSpotifyToken = this.getSpotifyToken.bind(this);
+    this.setDevice = this.setDevice.bind(this);
   }
 
   componentDidMount() {
     if (this.getSpotifyToken()) {
       this.setState({loggedInToSpotify: true});
-      this.getDeviceId();
+      this.getDevices();
       this.getCurrentAlbum();
     }
     this.getCurrentUser(this.goToDashboard);
@@ -340,10 +344,12 @@ getSpotifyToken() {
   }
 
   //get the active device for the host user who is signed in to Spotify
-  getDeviceId() {
+  getDevices() {
     spotifyApi.getMyDevices()
       .then((data) => {
-        this.setState({deviceId : data.devices[0].id})
+        this.setState({devices: data.devices,
+                       deviceId: data.devices[0].id
+                      });
       }, (err) =>{
         console.error(err);
       });
@@ -376,9 +382,13 @@ getSpotifyToken() {
     spotifyApi.getMyCurrentPlayingTrack()
       .then(data => {
         this.setState({currentAlbumId : data.item.album.uri})
-      });
+      })
+      .catch(err => console.log(err));
   }
 
+  setDevice(deviceId) {
+    this.setState({deviceId: deviceId});
+  }
 
 
 
@@ -421,14 +431,21 @@ getSpotifyToken() {
         {toBeRendered()}
         {this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
-          && this.state.currentAlbumId
           &&  this.state.loggedInToSpotify
-          ? <MusicPlayer albumId={this.state.currentAlbumId}/>
+          && this.state.currentAlbumId
+          && this.state.deviceId
+          ? <MusicPlayer
+              albumId={this.state.currentAlbumId}
+              devices={this.state.devices}
+              handleDeviceSelect={this.setDevice}
+            />
           : this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
-          && <div className='musicButton' onClick={this.loginToSpotify}>
-            <div className='musicBtnText'>Log into Spotify to activate player</div>
-          </div>
+          && <MusicLoginButton
+                loggedIn={this.state.loggedInToSpotify}
+                activeDeviceFound={this.state.albumId}
+                handleClick={this.loginToSpotify}
+             />
         }
       </div>
     )
