@@ -167,7 +167,11 @@ function favoriteOrUnfavoriteExercise(req, res) {
     if (user) {
       if (req.body.favorited) {
         var toBeDeletedIndex = user.favorites.indexOf(req.body.exercise.name);
-        user.favorites.splice(1, toBeDeletedIndex);
+        if (toBeDeletedIndex === 0) {
+          user.favorites.pop();
+        } else {
+          user.favorites.splice(1, toBeDeletedIndex);
+        }
       } else {
         user.favorites.push(req.body.exercise.name);
       }
