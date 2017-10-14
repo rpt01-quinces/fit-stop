@@ -16,3 +16,5 @@ client/public/compiled
 env/credentials.js
 
 node_modules
+
+.idea/workspace.xml
