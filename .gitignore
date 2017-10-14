@@ -11,9 +11,9 @@ node_modules
 
 .idea/
 
-./polly/credentials.json
+polly/credentials.json
 
-/client/public/audio
+client/public/audio
 
 
 
