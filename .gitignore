@@ -9,7 +9,7 @@ server/seedDb.js
 
 node_modules
 
-.idea/workspace.xml
+.idea/
 
 ./polly/credentials.json
 
