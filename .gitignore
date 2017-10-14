@@ -6,4 +6,16 @@ env/credentials.js
 server/dbInfo.js
 server/seedDb.js
 
+
+node_modules
+
+.idea/
+
+./polly/credentials.json
+
+/client/public/audio
+
+
+
 .DS_Store
+
