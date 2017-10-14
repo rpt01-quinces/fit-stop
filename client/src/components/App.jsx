@@ -452,6 +452,7 @@ getSpotifyToken() {
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
         {toBeRendered()}
+        <ExerciseAudio source='/public/audio/fitstop_test.mp3' />
         {this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'
           &&  this.state.loggedInToSpotify
