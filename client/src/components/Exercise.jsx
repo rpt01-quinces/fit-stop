@@ -14,9 +14,7 @@ class Exercise extends React.Component {
           <img className="exerciseImage" src={this.props.exercise.picture} />
           <p>
             <span className="exerciseName">{this.props.exercise.name}</span>
-            <a href='#'>
-              <img src='/public/images/pizzafavor.png' className='pizzafavor' style={style} onClick={ () => {this.props.favorite(this.props.exercise);} } />
-            </a>
+            <img src='/public/images/pizzafavor.png' className='pizzaFavor' style={style} onClick={ () => {this.props.favorite(this.props.exercise);} } />
           </p>
           {this.props.exercise.description}
         </div>

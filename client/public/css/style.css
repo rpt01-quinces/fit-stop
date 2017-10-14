@@ -176,9 +176,10 @@ body {
   margin-top: 10px;
 }
 
-.pizzafavor {
+.pizzaFavor {
   width: 40px;
   height: auto;
+  cursor: pointer;
 }
 
 .countdownCircle {
