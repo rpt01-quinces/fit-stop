@@ -4,7 +4,6 @@ const ExerciseAudio = (props) => {
       <div className='exerciseAudioBtn'>Exercise Audio</div>
       <audio
         autoPlay
-        controls='controls'
         src={props.source}
       ></audio>
     </div>
