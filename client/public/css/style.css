@@ -176,6 +176,11 @@ body {
   margin-top: 10px;
 }
 
+.pizzafavor {
+  width: 40px;
+  height: auto;
+}
+
 .countdownCircle {
   background-image: url(../images/pizzagif.gif);
   width: 25%;
