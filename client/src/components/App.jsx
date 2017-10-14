@@ -5,6 +5,7 @@ class App extends React.Component {
     super();
     this.state = {
       currentState: 'Dashboard',
+      userFavorites: [],
       currentWorkout: [],
       currentExercise: 0,
       workoutDate: null,
@@ -74,6 +75,7 @@ class App extends React.Component {
     this.setState({currentState: 'Countdown'});
     this.setState({showButtons: false});
     this.setState({currentExercise: 0});
+    this.getUserFavorites();
     this.getExercises();
     this.startCountdown();
   }
@@ -120,6 +122,23 @@ class App extends React.Component {
     });
   }
 
+  getUserFavorites() {
+    $.ajax({
+      url: '/user/favorites',
+      method: 'GET',
+      data: {
+        username: this.state.username
+      },
+      success: (function(data) {
+        console.log('get success', data);
+        this.setState({userFavorites: data});
+      }).bind(this),
+      error: function(err) {
+        console.error('get failure');
+      }
+    });
+  }
+
   getExercises() {
     $.ajax({
       method: 'GET',
@@ -157,16 +176,19 @@ class App extends React.Component {
 
   favorite(exercise) {
     $.ajax({
-      type: 'POST',
       url: '/user/favorites',
+      method: 'POST',
       data: JSON.stringify({
         username: this.state.username,
-        currentExercise: exercise
+        exercise: exercise
       }),
       contentType: 'application/json',
-      dataType: 'json',
-      success: function (data) {
-        console.log('succesfully posted data!');
+      success: (function (data) {
+        console.log('post success', data);
+        this.getUserFavorites();
+      }).bind(this),
+      error: function(error) {
+        console.log('post failure');
       }
     });
   };
@@ -417,6 +439,7 @@ getSpotifyToken() {
         countdown={this.state.countdown}
         goToSummary={this.goToSummary}
         goToDashboard={this.goToDashboard}
+        userFavorites={this.state.userFavorites}
         favorite={this.favorite}
         ref="workoutPage" />);
       }
