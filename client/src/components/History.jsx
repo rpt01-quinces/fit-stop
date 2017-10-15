@@ -9,8 +9,8 @@ class History extends React.Component {
   render() {
     return (
       <div className="history">
-        <span> History </span>
-        <span onMouseOver={this.handleMouseOver.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}> Favorites </span>
+        <h2 className='historyHeader'> History </h2>
+        <h2 className='favoritesHeader' onMouseOver={this.handleMouseOver.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}> Favorites </h2>
 
         {this.props.loggedIn && this.state.showHistory && this.props.workoutHistory.map(indivWorkout => <PastWorkout date={indivWorkout.date} lengthOfWorkout={indivWorkout.lengthOfWorkout} key={indivWorkout._id}/>)}
 

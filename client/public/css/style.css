@@ -47,6 +47,15 @@ body {
   padding-bottom: 60px;
 }
 
+.historyHeader, .favoritesHeader {
+  display: inline-block;
+}
+
+.favoritesHeader {
+  float: right;
+  cursor: pointer;
+}
+
 .history {
   background-color: rgba(211, 211, 211, .6);
   border-radius: 15px;
