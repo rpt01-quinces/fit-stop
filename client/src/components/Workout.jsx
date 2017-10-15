@@ -4,9 +4,11 @@ class Workout extends React.Component {
     this.state = {
       warmupActive: false,
       workoutActive: false,
-      cooldownActive: false
+      cooldownActive: false,
+      audioMuted: false
     }
     this.highlightActiveTitle.bind(this);
+    this.toggleAudio = this.toggleAudio.bind(this);
   }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -14,7 +16,6 @@ class Workout extends React.Component {
 * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * * * */
 
   componentDidMount() {
-
     this.highlightActiveTitle();
   }
 
@@ -30,6 +31,10 @@ class Workout extends React.Component {
     }
   }
 
+  toggleAudio() {
+    console.log('toggling')
+   this.setState({audioMuted: !this.state.audioMuted});
+  }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Change css based on which exercise type
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -42,8 +47,14 @@ class Workout extends React.Component {
         <span className={'cooldownTitle ' + (this.state.cooldownActive ? 'activeTitle' : null)}>Cooldown</span>
 
         <Timer timer= {this.props.timer} />
-        <Exercise exercise={this.props.exercise} userFavorites={this.props.userFavorites} favoriteOrUnfavorite={this.props.favoriteOrUnfavorite} />
-        <ExerciseAudio source={`/public/audio/${this.props.exercise.name.replace(' ', '_')}.mp3`} />
+        <div className="exerciseDescription">
+        <Exercise  exercise={this.props.exercise} userFavorites={this.props.userFavorites} favoriteOrUnfavorite={this.props.favoriteOrUnfavorite} />
+        <ExerciseAudio
+          source={`/public/audio/${this.props.exercise.name.replace(' ', '_')}.mp3`}
+          muted={this.state.audioMuted}
+          onToggle={this.toggleAudio}
+        />
+        </div>
         <button onClick={this.props.goToDashboard} className="blackButton">Quit & Back To Dashboard</button>
         <button onClick={this.props.goToSummary} className="blackButton">Summary</button>
       </div>
