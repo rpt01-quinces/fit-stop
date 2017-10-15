@@ -30,7 +30,7 @@ class App extends React.Component {
     this.goToSignUp = this.goToSignUp.bind(this);
     this.getWorkoutHistory = this.getWorkoutHistory.bind(this);
     this.sendWorkoutData = this.sendWorkoutData.bind(this);
-    this.favoriteOrUnfavorite = this.favoriteOrUnfavorite.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
     this.logOut = this.logOut.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
@@ -176,7 +176,7 @@ class App extends React.Component {
     });
   };
 
-  favoriteOrUnfavorite(exercise) {
+  toggleFavorite(exercise) {
     var favorited;
     if (this.state.userFavorites.includes(exercise.name)) {
       favorited = true;
@@ -452,7 +452,7 @@ getSpotifyToken() {
         goToSummary={this.goToSummary}
         goToDashboard={this.goToDashboard}
         userFavorites={this.state.userFavorites}
-        favoriteOrUnfavorite={this.favoriteOrUnfavorite}
+        toggleFavorite={this.toggleFavorite}
         ref="workoutPage" />);
       }
       if (this.state.currentState === 'Summary') {
