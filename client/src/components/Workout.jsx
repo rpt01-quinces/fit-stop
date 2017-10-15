@@ -47,12 +47,14 @@ class Workout extends React.Component {
         <span className={'cooldownTitle ' + (this.state.cooldownActive ? 'activeTitle' : null)}>Cooldown</span>
 
         <Timer timer= {this.props.timer} />
-        <Exercise exercise={this.props.exercise} userFavorites={this.props.userFavorites} favoriteOrUnfavorite={this.props.favoriteOrUnfavorite} />
+        <div className="exerciseDescription">
+        <Exercise  exercise={this.props.exercise} userFavorites={this.props.userFavorites} favoriteOrUnfavorite={this.props.favoriteOrUnfavorite} />
         <ExerciseAudio
           source={`/public/audio/${this.props.exercise.name.replace(' ', '_')}.mp3`}
           muted={this.state.audioMuted}
           onToggle={this.toggleAudio}
         />
+        </div>
         <button onClick={this.props.goToDashboard} className="blackButton">Quit & Back To Dashboard</button>
         <button onClick={this.props.goToSummary} className="blackButton">Summary</button>
       </div>
