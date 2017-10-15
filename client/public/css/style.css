@@ -365,7 +365,7 @@ input[type=submit] {
 .exerciseAudioBtn {
   border: 2px solid #3b8fb5;
   border-radius: 20px;
-  width: 12em;
+  width: 10em;
   margin: auto;
   text-align: center;
   color: #3b8fb5;
@@ -375,6 +375,7 @@ input[type=submit] {
   transition: background-color 0.4s ease;
   transition: color 0.4s ease;
   margin-top: 20px;
+  font-size: 12px;
 }
 
 .deviceWarning {
