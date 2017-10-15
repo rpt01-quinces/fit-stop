@@ -11,7 +11,7 @@ class History extends React.Component {
     return (
       <div className="history">
         {this.props.loggedIn && (<h2 className='historyHeader'>History</h2>)}
-        {this.props.loggedIn && (<h2 className='favoritesHeader' onMouseOver={this.handleMouseOver.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>Favorites</h2>)}
+        {this.props.loggedIn && (<h2 className='favoritesHeader' onClick={this.handleClick.bind(this)}>Favorites</h2>)}
 
         {this.props.loggedIn && this.state.showHistory && this.props.workoutHistory.map(
           workout => <PastWorkout date={workout.date} lengthOfWorkout={workout.lengthOfWorkout} key={workout._id} />
@@ -31,12 +31,8 @@ class History extends React.Component {
     );
   }
 
-  handleMouseOver() {
-    this.setState({showHistory: false});
-  }
-
-  handleMouseLeave() {
-    this.setState({showHistory: true});
+  handleClick() {
+    this.setState({showHistory: !this.state.showHistory});
   }
 }
 
