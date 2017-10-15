@@ -1,15 +1,15 @@
 const ExerciseAudio = (props) => {
-  console.log(props.muted)
   return (
     <div className='exerciseAudio'>
       <div
         className='exerciseAudioBtn'
         onClick={props.onToggle}
-      >Exercise Audio</div>
-      {!props.muted && <audio
-        autoPlay={!props.muted}
-        src={props.source}
-      ></audio>
+      >Exercise Audio:{props.muted ? ' Off' : ' On'}</div>
+      {!props.muted &&
+        <audio
+          autoPlay={!props.muted}
+          src={props.source}
+        ></audio>
       }
 
     </div>
