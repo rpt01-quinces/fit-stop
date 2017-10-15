@@ -57,6 +57,7 @@ class App extends React.Component {
     this.setState({showButtons: true});
     if (this.state.loggedIn && this.state.username) {
       this.getWorkoutHistory();
+      this.getUserFavorites();
     }
     if (this.state.interval) {
       clearInterval(this.state.interval);
@@ -75,7 +76,6 @@ class App extends React.Component {
     this.setState({currentState: 'Countdown'});
     this.setState({showButtons: false});
     this.setState({currentExercise: 0});
-    this.getUserFavorites();
     this.getExercises();
     this.startCountdown();
   }
