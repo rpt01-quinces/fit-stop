@@ -13,9 +13,13 @@ class History extends React.Component {
         {this.props.loggedIn && (<h2 className='historyHeader'>History</h2>)}
         {this.props.loggedIn && (<h2 className='favoritesHeader' onMouseOver={this.handleMouseOver.bind(this)} onMouseLeave={this.handleMouseLeave.bind(this)}>Favorites</h2>)}
 
-        {this.props.loggedIn && this.state.showHistory && this.props.workoutHistory.map(indivWorkout => <PastWorkout date={indivWorkout.date} lengthOfWorkout={indivWorkout.lengthOfWorkout} key={indivWorkout._id}/>)}
+        {this.props.loggedIn && this.state.showHistory && this.props.workoutHistory.map(
+          workout => <PastWorkout date={workout.date} lengthOfWorkout={workout.lengthOfWorkout} key={workout._id} />
+        )}
 
-        {this.props.loggedIn && !this.state.showHistory && (<p>{this.props.userFavorites}</p>)}
+        {this.props.loggedIn && !this.state.showHistory && this.props.userFavorites.map(
+          userFavorite => <Favorite userFavorite={userFavorite} />
+        )}
 
         {!this.props.loggedIn && (
           <div className='noticeNotLoggedIn'>
