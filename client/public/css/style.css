@@ -47,6 +47,16 @@ body {
   padding-bottom: 60px;
 }
 
+.history {
+  background-color: #cee8ef;
+  border-radius: 15px;
+  padding: 15px;
+  padding-top: 5px;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
 .historyHeader, .favoritesHeader {
   display: inline-block;
 }
@@ -56,14 +66,8 @@ body {
   cursor: pointer;
 }
 
-.history {
-  background-color: rgba(211, 211, 211, .6);
-  border-radius: 15px;
-  padding: 15px;
-  padding-top: 5px;
-  padding-bottom: 30px;
-  margin-bottom: 20px;
-  margin-top: 50px;
+.favoritesHeader:hover {
+  color: #3b8fb5;
 }
 
 .noticeNotLoggedIn {
@@ -90,11 +94,11 @@ body {
   width: 20%;
 }
 
-.pastWorkout {
+.pastWorkoutOrFavorite {
   background-color: rgba(255, 255, 255, .8);
   border-radius: 10px;
   border-width: 1px;
-  border-color: black;
+  border-color: #3b8fb5;
   border-style: solid;
   margin-bottom: 5px;
   text-align: left;
@@ -120,7 +124,7 @@ body {
   float: right;
 }
 
-.dateAndTime {
+.dateAndTimeOrExercise {
     font-weight: bold;
     color: #386994;
 }

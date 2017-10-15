@@ -1,5 +1,7 @@
 var Favorite = (props) => (
-  <span className="dateAndTime">{props.userFavorite}</span>
+  <div className="pastWorkoutOrFavorite">
+    <span className="dateAndTimeOrExercise">{props.userFavorite}</span>
+  </div>
 );
 
 
