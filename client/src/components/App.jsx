@@ -434,7 +434,7 @@ getSpotifyToken() {
   render() {
     var toBeRendered = () => {
       if (this.state.currentState === 'Dashboard') {
-        return (<Dashboard goToCountdown={this.goToCountdown} workoutHistory={this.state.workoutHistory} loggedIn={this.state.loggedIn} />);
+        return (<Dashboard goToCountdown={this.goToCountdown} workoutHistory={this.state.workoutHistory} userFavorites={this.state.userFavorites} loggedIn={this.state.loggedIn} />);
       }
       if (this.state.currentState === 'Login') {
           return (<Login login={this.login} />);
@@ -487,5 +487,6 @@ getSpotifyToken() {
   }
 
 } // End of Class
+
 
 window.App = App;
