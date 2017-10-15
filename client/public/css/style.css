@@ -409,10 +409,9 @@ input[type=submit] {
 
 .musicPlayer {
   position: relative;
-  top: 40px;
-  border: 2px solid #3b8fb5;
+  border: 2px solid white;
   border-radius: 20px;
-  background-color: white;
+  background-color: rgba(211, 211, 211, .6);
   margin-left: 40px;
   margin-right: 40px;
 }
