@@ -3,6 +3,7 @@ const ExerciseAudio = (props) => {
     <div className='exerciseAudio'>
       <div
         className='exerciseAudioBtn'
+        onClick={props.onToggle}
       >Exercise Audio:{props.muted ? ' Off' : ' On'}</div>
       {!props.muted &&
         <audio
