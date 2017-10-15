@@ -7,7 +7,6 @@ class History extends React.Component {
   }
 
   render() {
-    console.log(this.props.userFavorites, this.props.userFavorites.constructor);
     return (
       <div className="history">
         {this.props.loggedIn && (<h2 className='historyHeader' onClick={this.handleClickHistory.bind(this)}>History</h2>)}
