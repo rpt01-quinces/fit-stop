@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var dbUri = require('./dbInfo').dbUri;
+var dbUri = require('./dbCredentials').dbUri;
 var Schema = mongoose.Schema;
 
 
