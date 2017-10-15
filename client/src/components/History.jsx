@@ -10,8 +10,8 @@ class History extends React.Component {
     console.log(this.props.userFavorites, this.props.userFavorites.constructor);
     return (
       <div className="history">
-        {this.props.loggedIn && (<h2 className='historyHeader'>History</h2>)}
-        {this.props.loggedIn && (<h2 className='favoritesHeader' onClick={this.handleClick.bind(this)}>Favorites</h2>)}
+        {this.props.loggedIn && (<h2 className='historyHeader' onClick={this.handleClickHistory.bind(this)}>History</h2>)}
+        {this.props.loggedIn && (<h2 className='favoritesHeader' onClick={this.handleClickFavorites.bind(this)}>Favorites</h2>)}
 
         {this.props.loggedIn && this.state.showHistory && this.props.workoutHistory.map(
           workout => <PastWorkout date={workout.date} lengthOfWorkout={workout.lengthOfWorkout} key={workout._id} />
@@ -31,8 +31,12 @@ class History extends React.Component {
     );
   }
 
-  handleClick() {
-    this.setState({showHistory: !this.state.showHistory});
+  handleClickHistory() {
+    this.setState({showHistory: true});
+  }
+
+  handleClickFavorites() {
+    this.setState({showHistory: false});
   }
 }
 
