@@ -38,7 +38,6 @@ body {
   background-color: rgba(255, 255, 255, .5);
   border-radius: 15px;
   padding: 20px;
-  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -123,7 +122,9 @@ body {
   font-size: 14px;
   padding: 10px 20px;
   text-decoration: none;
-  margin-top: 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  float: right;
 }
 
 .blackButtons:hover {
@@ -387,7 +388,7 @@ input[type=submit] {
   transition: background-color 0.4s ease;
   transition: color 0.4s ease;
   margin-top: 20px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .deviceWarning {
@@ -420,10 +421,10 @@ input[type=submit] {
 }
 
 .musicPlayer {
-  position: relative;
   border: 2px solid white;
   border-radius: 20px;
   background-color: rgba(211, 211, 211, .6);
   margin-left: 40px;
   margin-right: 40px;
+  clear: right;
 }

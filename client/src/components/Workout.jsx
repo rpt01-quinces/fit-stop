@@ -32,7 +32,6 @@ class Workout extends React.Component {
   }
 
   toggleAudio() {
-    console.log('toggling')
    this.setState({audioMuted: !this.state.audioMuted});
   }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
