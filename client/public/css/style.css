@@ -123,7 +123,9 @@ body {
   font-size: 14px;
   padding: 10px 20px;
   text-decoration: none;
-  margin-top: 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  float: right;
 }
 
 .blackButtons:hover {
@@ -420,10 +422,11 @@ input[type=submit] {
 }
 
 .musicPlayer {
-  position: relative;
   border: 2px solid white;
   border-radius: 20px;
   background-color: rgba(211, 211, 211, .6);
   margin-left: 40px;
   margin-right: 40px;
+  margin-top: 60px;
+
 }

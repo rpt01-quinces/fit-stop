@@ -473,8 +473,7 @@ getSpotifyToken() {
               devices={this.state.devices}
               handleDeviceSelect={this.setDevice}
             />
-          : this.state.currentState !== 'Login'
-          && this.state.currentState !== 'SignUp'
+          : this.state.currentState === 'Dashboard'
           && <MusicLoginButton
                 loggedIn={this.state.loggedInToSpotify}
                 activeDeviceFound={this.state.albumId}
