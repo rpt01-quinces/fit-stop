@@ -3,7 +3,7 @@ client/public/compiled
 
 env/config.js
 env/credentials.js
-server/dbInfo.js
+server/dbCredentials.js
 server/seedDb.js
 
 

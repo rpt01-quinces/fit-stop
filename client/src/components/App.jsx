@@ -1,5 +1,3 @@
-
-
 class App extends React.Component {
   constructor() {
     super();
@@ -437,13 +435,13 @@ getSpotifyToken() {
         return (<Dashboard goToCountdown={this.goToCountdown} workoutHistory={this.state.workoutHistory} userFavorites={this.state.userFavorites} loggedIn={this.state.loggedIn} />);
       }
       if (this.state.currentState === 'Login') {
-          return (<Login login={this.login} />);
+        return (<Login login={this.login} />);
       }
       if (this.state.currentState === 'SignUp') {
-          return (<SignUp signup={this.signup}  />);
+        return (<SignUp signup={this.signup}  />);
       }
       if (this.state.currentState === 'Countdown') {
-          return (<Countdown countdown={this.state.countdown} />);
+        return (<Countdown countdown={this.state.countdown} />);
       }
       if (this.state.currentState === 'Workout') {
         return (<Workout
@@ -463,6 +461,7 @@ getSpotifyToken() {
     return (
       <div className = "App">
         <Header username={this.state.username} goToLogin={this.goToLogin} goToSignUp={this.goToSignUp} loggedIn={this.state.loggedIn} logOut={this.logOut} showButtons={this.state.showButtons}/>
+        <Banner />
         {toBeRendered()}
         {this.state.currentState !== 'Login'
           && this.state.currentState !== 'SignUp'

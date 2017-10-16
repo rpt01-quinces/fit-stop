@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
-var dbUri = require('./dbCredentials').dbUri;
-var Schema = mongoose.Schema;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Connection to MongoDB instance
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+var dbUri = require('./dbCredentials').dbUri;
 mongoose.connect('mongodb://' + dbUri);
 
 mongoose.connection.once('open', function() {
@@ -19,8 +18,10 @@ mongoose.connection.on('error', function(error) {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Definition of Schemas
+  Schemas
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+var Schema = mongoose.Schema;
 
 var exerciseSchema = new Schema({
   name: String,
@@ -35,15 +36,14 @@ var exerciseSchema = new Schema({
 var userSchema = new Schema({
   username: String,
   password: String,
-  favorites: [],
   number: String,
-  preferences: {},
-  workoutHistory: []
+  workoutHistory: [],
+  favorites: []
 });
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-   Model Creation based on Schemas
+  Models
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var Exercise = mongoose.model('Exercise', exerciseSchema);
@@ -51,5 +51,4 @@ var User = mongoose.model('User', userSchema);
 
 module.exports.exerciseModel = Exercise;
 module.exports.userModel = User;
-module.exports.mongoose = mongoose;
 
