@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var dbUri = require('./dbCredentials').dbUri;
-var Schema = mongoose.Schema;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -19,8 +18,10 @@ mongoose.connection.on('error', function(error) {
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Definition of Schemas
+  Schemas
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+var Schema = mongoose.Schema;
 
 var exerciseSchema = new Schema({
   name: String,
@@ -35,15 +36,14 @@ var exerciseSchema = new Schema({
 var userSchema = new Schema({
   username: String,
   password: String,
-  favorites: [],
   number: String,
-  preferences: {},
-  workoutHistory: []
+  workoutHistory: [],
+  favorites: []
 });
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-   Model Creation based on Schemas
+  Models
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var Exercise = mongoose.model('Exercise', exerciseSchema);

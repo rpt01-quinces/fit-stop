@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var moment = require('moment');
 
 
-var db = require('./db').mongoose;
 var Exercise = require('./db').exerciseModel;
 var User = require('./db').userModel;
 var ObjectID = require('mongodb').ObjectID;
@@ -49,7 +48,7 @@ app.get('/history', getHistory);
 app.get('/user/favorites', getUserFavorites);
 
 app.post('/addWorkout', addWorkout);
-app.post('/user/favorites', favoriteOrUnfavoriteExercise);
+app.post('/user/favorites', toggleFavoriteOnExercise);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 app.post('/remind', reminder);
@@ -72,6 +71,7 @@ app.post('/logout', (req, res) => {
   })
 
 });
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Request Handlers
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -161,7 +161,7 @@ function addWorkout(req, res) {
   });
 }
 
-function favoriteOrUnfavoriteExercise(req, res) {
+function toggleFavoriteOnExercise(req, res) {
   User.findOne({username: req.body.username})
   .then(function(user) {
     if (user) {
@@ -205,7 +205,6 @@ function checkLogin(req, res) {
   });
 }
 
-
 function addSignup(req, res) {
   var name = req.body.username;
   var pass = req.body.password;
@@ -223,7 +222,6 @@ function addSignup(req, res) {
           username: name,
           password: hash,
           number: "+1"+num,
-          preferences: {}
         });
 
         newUser.save(function(err) {
