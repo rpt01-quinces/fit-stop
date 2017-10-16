@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-var dbUri = require('./dbCredentials').dbUri;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Connection to MongoDB instance
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+var dbUri = require('./dbCredentials').dbUri;
 mongoose.connect('mongodb://' + dbUri);
 
 mongoose.connection.once('open', function() {
@@ -51,5 +51,4 @@ var User = mongoose.model('User', userSchema);
 
 module.exports.exerciseModel = Exercise;
 module.exports.userModel = User;
-module.exports.mongoose = mongoose;
 
