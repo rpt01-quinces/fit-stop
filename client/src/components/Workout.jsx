@@ -59,9 +59,5 @@ class Workout extends React.Component {
       </div>
     );
   }
-
-} // End of Class
-
-
-window.Workout = Workout;
+}
 

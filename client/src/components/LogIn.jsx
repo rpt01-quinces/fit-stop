@@ -10,6 +10,3 @@ var Login = (props) => (
     </form>
   </div>
 );
-
-
-window.Login = Login;

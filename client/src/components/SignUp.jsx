@@ -13,6 +13,3 @@ var SignUp = (props) => (
     </form>
   </div>
 );
-
-
-window.SignUp = SignUp;

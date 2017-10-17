@@ -7,6 +7,3 @@ var Dashboard = (props) => (
     <History workoutHistory={props.workoutHistory} workoutDate={props.workoutDate} workoutLength={props.workoutLength} userFavorites={props.userFavorites} loggedIn={props.loggedIn}/>
   </div>
 );
-
-
-window.Dashboard = Dashboard;
