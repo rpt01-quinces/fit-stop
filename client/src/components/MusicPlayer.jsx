@@ -25,8 +25,4 @@ var MusicPlayer = (props) => {
       </div>
     </div>)
 
-
-}
-
-
-window.MusicPlayer = MusicPlayer;
+};

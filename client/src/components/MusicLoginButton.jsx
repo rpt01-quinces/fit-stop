@@ -9,7 +9,4 @@ var MusicLoginButton = (props) => {
       </div>
     </div>
   )
-}
-
-
-window.MusicLoginButton = MusicLoginButton;
+};

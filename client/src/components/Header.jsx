@@ -8,6 +8,3 @@ var Header = (props) => (
     </div>
   </div>
 );
-
-
-window.Header = Header;

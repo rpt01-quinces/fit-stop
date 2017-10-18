@@ -6,6 +6,3 @@ var Countdown = (props) => (
     </div>
   </div>
 );
-
-
-window.Countdown = Countdown;

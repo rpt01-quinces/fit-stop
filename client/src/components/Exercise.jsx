@@ -20,6 +20,3 @@ class Exercise extends React.Component {
     );
   }
 }
-
-
-window.Exercise = Exercise;

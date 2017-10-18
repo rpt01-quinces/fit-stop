@@ -19,8 +19,5 @@ const ExerciseAudio = (props) => {
         ></audio>
       }
     </div>
-    )
+  );
 }
-
-
-window.ExerciseAudio = ExerciseAudio;

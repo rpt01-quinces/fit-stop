@@ -38,6 +38,3 @@ class History extends React.Component {
     this.setState({showHistory: false});
   }
 }
-
-
-window.History = History;

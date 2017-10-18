@@ -3,6 +3,3 @@ var Timer = (props) => (
     {props.timer}
   </div>
 );
-
-
-window.Timer = Timer;

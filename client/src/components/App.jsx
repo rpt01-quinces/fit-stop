@@ -483,8 +483,4 @@ getSpotifyToken() {
       </div>
     )
   }
-
-} // End of Class
-
-
-window.App = App;
+}

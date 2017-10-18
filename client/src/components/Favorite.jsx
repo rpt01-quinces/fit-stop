@@ -3,6 +3,3 @@ var Favorite = (props) => (
     <span className="dateAndTimeOrExercise">{props.userFavorite}</span>
   </div>
 );
-
-
-window.Favorite = Favorite;

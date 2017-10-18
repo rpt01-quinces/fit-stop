@@ -13,8 +13,4 @@ var Summary = (props) => (
     <span className="summaryQuote">"Good things come to those who sweat."</span>
     <button onClick={props.goToDashboard} className="blackButton">Back To Dashboard</button>
   </div>
-
 );
-
-
-window.Summary = Summary;
