@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Connection to MongoDB instance
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -16,9 +15,8 @@ mongoose.connection.on('error', function(error) {
   console.log('database connection error: ' + error);
 });
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Schemas
+  Schema
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var Schema = mongoose.Schema;
@@ -40,7 +38,6 @@ var userSchema = new Schema({
   workoutHistory: [],
   favorites: []
 });
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Models

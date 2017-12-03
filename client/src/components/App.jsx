@@ -129,7 +129,6 @@ class App extends React.Component {
         username: this.state.username
       },
       success: (function(data) {
-        console.log('get success', data);
         this.setState({userFavorites: data});
       }).bind(this),
       error: function(err) {
@@ -192,11 +191,10 @@ class App extends React.Component {
       }),
       contentType: 'application/json',
       success: (function (data) {
-        console.log('post success', data);
         this.getUserFavorites();
       }).bind(this),
       error: function(error) {
-        console.log('post failure');
+        console.error('post failure');
       }
     });
   };
@@ -298,7 +296,6 @@ class App extends React.Component {
     });
 
   }
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Countdown and Timer Functions
@@ -421,9 +418,6 @@ getSpotifyToken() {
   setDevice(deviceId) {
     this.setState({deviceId: deviceId});
   }
-
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Renders the components based on the current state
