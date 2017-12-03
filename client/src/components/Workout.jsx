@@ -47,7 +47,7 @@ class Workout extends React.Component {
 
         <Timer timer= {this.props.timer} />
         <div className="exerciseDescription">
-        <Exercise  exercise={this.props.exercise} userFavorites={this.props.userFavorites} toggleFavorite={this.props.toggleFavorite} />
+        <Exercise exercise={this.props.exercise} userFavorites={this.props.userFavorites} toggleFavorite={this.props.toggleFavorite} />
         <ExerciseAudio
           source={`/public/audio/${this.props.exercise.name.replace(' ', '_')}.mp3`}
           muted={this.state.audioMuted}

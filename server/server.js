@@ -48,7 +48,7 @@ app.get('/history', getHistory);
 app.get('/user/favorites', getUserFavorites);
 
 app.post('/addWorkout', addWorkout);
-app.post('/user/favorites', toggleFavoriteOnExercise);
+app.post('/user/favorites', toggleFavorite);
 app.post('/login', checkLogin);
 app.post('/signup', addSignup);
 app.post('/remind', reminder);
@@ -68,8 +68,7 @@ app.get('/callback', (req, res) => {
 app.post('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
-  })
-
+  });
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -161,7 +160,7 @@ function addWorkout(req, res) {
   });
 }
 
-function toggleFavoriteOnExercise(req, res) {
+function toggleFavorite(req, res) {
   User.findOne({username: req.body.username})
   .then(function(user) {
     if (user) {
@@ -179,7 +178,7 @@ function toggleFavoriteOnExercise(req, res) {
     }
   })
   .then(function() {
-    res.status(201).send('Favorite/Unfavorite saved')
+    res.status(201).send('Favorite/Unfavorite saved');
   });
 }
 
